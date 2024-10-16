@@ -2,11 +2,14 @@
 "use client";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { MutableRefObject, useRef } from "react";
 import { useDrag } from "react-use-gesture";
 
-export default function Model(props: any) {
-  const rotateY = useRef(0);
+export default function Model({
+  rotateY,
+}: {
+  rotateY: MutableRefObject<number>;
+}) {
   const { scene } = useGLTF("/models/oversized_t-shirt/scene.gltf");
   const drag = useDrag(
     ({ offset: [x, y] }) => {
@@ -19,7 +22,7 @@ export default function Model(props: any) {
 
   useFrame(() => (scene.rotation.y = rotateY.current));
 
-  return <primitive object={scene} {...drag()} {...props} />;
+  return <primitive object={scene} {...drag()} />;
 }
 
 // You can also preload the model to reduce loading times.
