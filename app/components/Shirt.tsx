@@ -25,27 +25,10 @@ export function Shirt() {
           >
             {/* chang shirt color */}
             <meshStandardMaterial color="red" />
-            <Decal
-              position={[0, 0.9, 0.75]}
-              rotation={[-0.4, Math.PI, 0]}
-              scale={[0.9, 0.25, 1]}
-            >
-              <meshStandardMaterial
-                roughness={1}
-                transparent
-                polygonOffset
-                polygonOffsetFactor={-1}
-              >
-                <RenderTexture attach="map">
-                  <color attach="background" args={["#242424"]} />
-                  <ambientLight intensity={Math.PI} />
-                  <directionalLight position={[10, 10, 5]} />
-                  <Text rotation={[0, Math.PI, 0]} fontSize={4} color="white">
-                    hello from drei
-                  </Text>
-                </RenderTexture>
-              </meshStandardMaterial>
-            </Decal>
+            {/* TODO: display texture image */}
+            {/* <Decal position={[0, 0, 0]} rotation={[0, 0, 0]} scale={[1, 1, 1]}>
+              <meshBasicMaterial map={texture} />
+            </Decal> */}
           </mesh>
         </group>
       </group>
