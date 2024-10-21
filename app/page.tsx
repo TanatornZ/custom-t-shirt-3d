@@ -1,8 +1,8 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { Center, Environment, OrbitControls } from "@react-three/drei";
 import { Shirt } from "./components/Shirt";
 
 export default function Home() {
@@ -18,10 +18,12 @@ export default function Home() {
       }}
     >
       <Suspense fallback={<div>loading...</div>}>
-        <Canvas camera={{ position: [0, 4, 24], zoom: 6 }}>
+        <Canvas camera={{ position: [0, 4, 24], zoom: 10 }}>
           <OrbitControls />
-          <Shirt />
-          <Environment preset="city" />
+          <Center>
+            <Shirt />
+            <Environment preset="city" />
+          </Center>
         </Canvas>
       </Suspense>
     </div>
