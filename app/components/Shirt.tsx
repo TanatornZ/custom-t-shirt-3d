@@ -1,20 +1,26 @@
-import React from "react";
+// @ts-nocheck
+import React, { useEffect } from "react";
 import { Decal, useGLTF, useTexture } from "@react-three/drei";
 
-export function Shirt() {
-  const texture = useTexture("/texture/basketball.png");
+export function Shirt({ shirtColor }: { shirtColor?: string }) {
+  const texture = useTexture("/texture/tiger-head.png");
   const { nodes, materials } = useGLTF("/models/shirt_baked_collapsed.glb");
+
+  useEffect(() => {
+    if (materials.lambert1) {
+      materials.lambert1.color.set(shirtColor);
+    }
+  }, [shirtColor]);
 
   return (
     <group dispose={null}>
       <mesh
         castShadow
-        receiveShadow
+        dispose={null}
         geometry={nodes.T_Shirt_male.geometry}
         material={materials.lambert1}
       >
         <Decal
-          debug
           position={[0, 0.04, 0.1]}
           rotation={[0, 0, 0]}
           scale={0.2}
