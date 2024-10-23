@@ -2,10 +2,13 @@
 // @ts-nocheck
 import React, { useEffect } from "react";
 import { Decal, useGLTF, useTexture } from "@react-three/drei";
+import { useControls } from "leva";
 
 export function Shirt({ shirtColor }: { shirtColor?: string }) {
-  const texture = useTexture("/texture/tiger-head.png");
   const { nodes, materials } = useGLTF("/models/shirt_baked_collapsed.glb");
+  const { image } = useControls({
+    image: { image: "/texture/basketball.png" },
+  });
 
   useEffect(() => {
     if (materials.lambert1) {
@@ -21,12 +24,14 @@ export function Shirt({ shirtColor }: { shirtColor?: string }) {
         geometry={nodes.T_Shirt_male.geometry}
         material={materials.lambert1}
       >
-        <Decal
-          position={[0, 0.04, 0.1]}
-          rotation={[0, 0, 0]}
-          scale={0.2}
-          map={texture}
-        />
+        <Decal position={[0, 0.04, 0.1]} rotation={[0, 0, 0]} scale={0.2}>
+          <meshBasicMaterial
+            map={useTexture(image || "/texture/white-background.jpg")}
+            transparent
+            polygonOffset
+            polygonOffsetFactor={-1}
+          />
+        </Decal>
       </mesh>
     </group>
   );
