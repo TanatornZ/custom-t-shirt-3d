@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React, { useEffect } from "react";
 import { Decal, useGLTF, useTexture } from "@react-three/drei";
@@ -10,7 +11,7 @@ export function Shirt({ shirtColor }: { shirtColor?: string }) {
     if (materials.lambert1) {
       materials.lambert1.color.set(shirtColor);
     }
-  }, [shirtColor]);
+  }, [shirtColor, materials.lambert1]);
 
   return (
     <group dispose={null}>

@@ -1,7 +1,7 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Suspense, useState } from "react";
 import { Center, Environment, OrbitControls } from "@react-three/drei";
 import { Shirt } from "./components/Shirt";
 import ColorPicker from "./components/colorPicker";
