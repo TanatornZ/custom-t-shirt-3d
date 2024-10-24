@@ -87,7 +87,7 @@ export const BaseModal = ({
     >
       <div
         className={cx(
-          "sticky top-0 z-10 flex items-center justify-between ",
+          "sticky top-0 z-10 flex items-center justify-between",
           headerClassName
         )}
       >
@@ -96,7 +96,7 @@ export const BaseModal = ({
           X
         </div>
       </div>
-      <div className="flex flex-auto overflow-auto">{children}</div>
+      <div className="flex flex-auto overflow-hidden">{children}</div>
     </Modal>
   );
 };
