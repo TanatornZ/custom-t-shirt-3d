@@ -6,7 +6,7 @@ import { Center, Environment, OrbitControls } from "@react-three/drei";
 import { Shirt } from "./components/Shirt";
 import { BaseModal } from "./components/Modal";
 import { useMedia } from "react-use";
-import ColorPicker from "./components/colorPicker";
+import ColorPicker from "./components/ColorPicker";
 import Image from "next/image";
 
 export type IColorPicker = "#242424" | "#ffffff" | "#dc2626";
@@ -78,7 +78,7 @@ export default function Home() {
 
       <BaseModal
         title="Preview"
-        titleClassName="text-black"
+        titleClassName="text-black text-xl"
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
@@ -90,17 +90,19 @@ export default function Home() {
         overlay={{ backdropFilter: "blur(8px)" }}
         closeButtonClassName="hidden"
       >
-        <div className="w-full">
-          <div className="w-full h-[400px] md:h-[500px] relative">
+        <div className="w-full  flex flex-col">
+          <div className="w-full h-[400px] relative z-20">
             <Image
               src={previewImage}
-              alt="preview custom 3D shirt"
+              alt="preview-custom-3D-shirt"
               fill
-              className="object-contain scale-150"
+              className="object-contain scale-[2]"
             />
           </div>
+
           <div
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               const link = document.createElement("a");
               if (previewImage) {
                 link.setAttribute("download", "canvas.png");
@@ -111,7 +113,7 @@ export default function Home() {
               }
               link.click();
             }}
-            className="px-4 w-fit mx-auto self-end py-3 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 active:ring-1 active:ring-blue-600"
+            className="px-4 mt-2 w-fit mx-auto z-50 self-end py-3 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 active:ring-1 active:ring-blue-600"
           >
             Download
           </div>
