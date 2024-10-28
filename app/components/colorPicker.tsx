@@ -13,8 +13,8 @@ function ColorPicker({ setShirtColor, color, shirtColor }: Props) {
     <div
       style={{ backgroundColor: color }}
       className={cx(
-        `hover:ring-blue-400 cursor-pointer text-gray-100 size-6 hover:size-8 transition-all rounded-full ring-2 ring-blue-300`,
-        shirtColor === color && "!ring-blue-700 ring-4"
+        `hover:ring-blue-500 cursor-pointer text-gray-100 size-6 transition-all rounded-full ring-2 ring-blue-300`,
+        shirtColor === color && "ring-blue-700 ring-4"
       )}
       onClick={() => setShirtColor(color)}
     ></div>
