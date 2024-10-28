@@ -27,8 +27,12 @@ export default function Home() {
         justifyContent: "center",
         flexDirection: "column",
         backgroundColor: "#cbd5e1",
+        padding: isMobile ? "16px" : "32px",
       }}
     >
+      <h1 className="text-2xl md:text-3xl font-bold text-black">
+        Custom your shirt
+      </h1>
       <Suspense fallback={<div>loading...</div>}>
         <Canvas
           shadows
@@ -44,7 +48,7 @@ export default function Home() {
         </Canvas>
       </Suspense>
 
-      <div className="absolute flex flex-col md:flex-row justify-center items-center bottom-10 md:bottom-20 gap-8">
+      <div className="absolute flex flex-col md:flex-row justify-center items-center bottom-4 md:bottom-8 gap-8">
         <div className="flex gap-8 self-center">
           <ColorPicker
             setShirtColor={setShirtColor}

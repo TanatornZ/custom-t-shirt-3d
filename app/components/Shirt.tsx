@@ -6,9 +6,10 @@ import { useControls } from "leva";
 
 export function Shirt({ shirtColor }: { shirtColor?: string }) {
   const { nodes, materials } = useGLTF("/models/shirt_baked_collapsed.glb");
-  const { image } = useControls({
-    image: { image: "/texture/basketball.png" },
-  });
+  const image = "/texture/basketball.png";
+  // const { image } = useControls({
+  //   image: { image: "/texture/basketball.png" },
+  // });
 
   useEffect(() => {
     if (materials.lambert1) {
