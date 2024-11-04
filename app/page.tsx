@@ -6,10 +6,10 @@ import { Center, Environment, OrbitControls } from "@react-three/drei";
 import { Shirt } from "./components/Shirt";
 import { BaseModal } from "./components/Modal";
 import { useMedia } from "react-use";
-import ColorPicker from "./components/ColorPicker";
 import Image from "next/image";
 import { IoIosArrowBack } from "react-icons/io";
 import { cx } from "@emotion/css";
+import ColorPicker from "./components/colorPicker";
 
 export type IColorPicker = "#242424" | "#ffffff" | "#dc2626";
 
@@ -60,7 +60,12 @@ export default function Home() {
             <p className="text-center text-xl font-semibold">Drop Image</p>
           </div>
           <div className="absolute bottom-0 w-full p-4">
-            <div className="p-4 w-full h-12 rounded-md bg-blue-500 hover:bg-blue-600 cursor-pointer">
+            <div className="p-4 w-full h-12 rounded-md bg-blue-500 relative hover:bg-blue-600 cursor-pointer flex justify-center items-center">
+              <input
+                className="w-full h-full absolute opacity-0 cursor-pointer"
+                type="file"
+                accept="image/png"
+              />
               <p className="text-center text-white font-semibold">
                 Upload Image
               </p>
