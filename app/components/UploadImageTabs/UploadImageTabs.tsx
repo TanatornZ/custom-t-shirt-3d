@@ -1,7 +1,9 @@
 import { cx } from "@emotion/css";
+import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
+import useViewModel from "./useViewModel";
 
 type Props = {
   isImageTabsOpen: boolean;
@@ -9,14 +11,8 @@ type Props = {
 };
 
 function UploadImageTabs({ isImageTabsOpen, setIsImageTabsOpen }: Props) {
-  const [file, setFile] = useState<string[]>([]);
-  function handleImageInputChange(e: any) {
-    setFile([...file, URL.createObjectURL(e.target.files[0])]);
-  }
+  const { file, handleImageInputChange } = useViewModel();
 
-  useEffect(() => {
-    console.log("file => ", file);
-  }, [file]);
   return (
     <div
       className={cx(

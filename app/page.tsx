@@ -7,7 +7,7 @@ import { Shirt } from "./components/Shirt";
 import { BaseModal } from "./components/Modal";
 import { useMedia } from "react-use";
 import Image from "next/image";
-import UploadImageTabs from "./components/UploadImageTabs";
+import UploadImageTabs from "./components/UploadImageTabs/UploadImageTabs";
 import ColorShirtPicker from "./components/ColorShirtPicker";
 
 export type IColorPicker = "#242424" | "#ffffff" | "#dc2626";
