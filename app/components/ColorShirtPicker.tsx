@@ -8,7 +8,7 @@ type Props = {
   setShirtColor: (color: IColorPicker) => void;
 };
 
-function ColorPicker({ setShirtColor, color, shirtColor }: Props) {
+function ColorShirtPicker({ setShirtColor, color, shirtColor }: Props) {
   return (
     <div
       style={{ backgroundColor: color }}
@@ -21,4 +21,4 @@ function ColorPicker({ setShirtColor, color, shirtColor }: Props) {
   );
 }
 
-export default ColorPicker;
+export default ColorShirtPicker;
