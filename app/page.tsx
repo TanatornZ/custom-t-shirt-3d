@@ -6,8 +6,9 @@ import { Center, Environment, OrbitControls } from "@react-three/drei";
 import { Shirt } from "./components/Shirt";
 import { BaseModal } from "./components/Modal";
 import { useMedia } from "react-use";
-import ColorPicker from "./components/ColorPicker";
 import Image from "next/image";
+import UploadImageTabs from "./components/UploadImageTabs/UploadImageTabs";
+import ColorShirtPicker from "./components/ColorShirtPicker";
 
 export type IColorPicker = "#242424" | "#ffffff" | "#dc2626";
 
@@ -16,6 +17,7 @@ export default function Home() {
   const [previewImage, setPreviewImage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = useMedia("(max-width: 767px)", false);
+  const [isImageTabsOpen, setIsImageTabsOpen] = useState(false);
 
   return (
     <div
@@ -24,12 +26,20 @@ export default function Home() {
         width: "100vw",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
         flexDirection: "column",
         backgroundColor: "#cbd5e1",
+        padding: isMobile ? "16px" : "32px",
+        position: "relative",
       }}
     >
-      <Suspense fallback={<div>loading...</div>}>
+      <h1 className="text-2xl md:text-3xl font-bold text-black">
+        Custom your shirt
+      </h1>
+      <UploadImageTabs
+        isImageTabsOpen={isImageTabsOpen}
+        setIsImageTabsOpen={setIsImageTabsOpen}
+      />
+      <Suspense fallback={<div className="grow self-center">loading...</div>}>
         <Canvas
           shadows
           camera={{ position: [0, 4, 24], zoom: 15 }}
@@ -44,19 +54,19 @@ export default function Home() {
         </Canvas>
       </Suspense>
 
-      <div className="absolute flex flex-col md:flex-row justify-center items-center bottom-10 md:bottom-20 gap-8">
-        <div className="flex gap-8 self-center">
-          <ColorPicker
+      <div className="absolute flex flex-col md:flex-row justify-center items-center bottom-4 md:bottom-8 gap-8">
+        <div className="flex gap-8">
+          <ColorShirtPicker
             setShirtColor={setShirtColor}
             color={"#ffffff"}
             shirtColor={shirtColor}
           />
-          <ColorPicker
+          <ColorShirtPicker
             setShirtColor={setShirtColor}
             color={"#242424"}
             shirtColor={shirtColor}
           />
-          <ColorPicker
+          <ColorShirtPicker
             setShirtColor={setShirtColor}
             color={"#dc2626"}
             shirtColor={shirtColor}
