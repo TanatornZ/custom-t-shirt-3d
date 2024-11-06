@@ -4,11 +4,10 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useState } from "react";
 import { Center, Environment, OrbitControls } from "@react-three/drei";
 import { Shirt } from "./components/Shirt";
-import { BaseModal } from "./components/Modal";
 import { useMedia } from "react-use";
-import Image from "next/image";
 import UploadImageTabs from "./components/UploadImageTabs/UploadImageTabs";
 import ColorShirtPicker from "./components/ColorShirtPicker";
+import PreviewModal from "./components/PreviewModal";
 
 export type IColorPicker = "#242424" | "#ffffff" | "#dc2626";
 
@@ -18,6 +17,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = useMedia("(max-width: 767px)", false);
   const [isImageTabsOpen, setIsImageTabsOpen] = useState(false);
+  const [shirtTexture, setShirtTexture] = useState("");
 
   return (
     <div
@@ -36,6 +36,7 @@ export default function Home() {
         Custom your shirt
       </h1>
       <UploadImageTabs
+        setShirtTexture={setShirtTexture}
         isImageTabsOpen={isImageTabsOpen}
         setIsImageTabsOpen={setIsImageTabsOpen}
       />
@@ -48,7 +49,7 @@ export default function Home() {
         >
           <OrbitControls />
           <Center>
-            <Shirt shirtColor={shirtColor} />
+            <Shirt shirtColor={shirtColor} shirtTexture={shirtTexture} />
             <Environment preset="city" />
           </Center>
         </Canvas>
@@ -86,49 +87,11 @@ export default function Home() {
         </div>
       </div>
 
-      <BaseModal
-        title="Preview"
-        titleClassName="text-black text-xl"
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
-        className="m-4 mx-auto flex h-fit justify-center rounded-md bg-white p-2 md:max-w-[640px] md:p-4 xl:max-w-[1080px]"
-        borderRadius=""
-        padding=""
-        margin={isMobile ? "16px" : "auto"}
-        overlay={{ backdropFilter: "blur(8px)" }}
-        closeButtonClassName="hidden"
-      >
-        <div className="w-full  flex flex-col">
-          <div className="w-full h-[400px] relative z-20">
-            <Image
-              src={previewImage}
-              alt="preview-custom-3D-shirt"
-              fill
-              className="object-contain scale-[2]"
-            />
-          </div>
-
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              const link = document.createElement("a");
-              if (previewImage) {
-                link.setAttribute("download", "canvas.png");
-                link.setAttribute(
-                  "href",
-                  previewImage.replace("image/png", "image/octet-stream")
-                );
-              }
-              link.click();
-            }}
-            className="px-4 mt-2 w-fit mx-auto z-50 self-end py-3 bg-blue-500 rounded-lg cursor-pointer hover:bg-blue-600 active:ring-1 active:ring-blue-600"
-          >
-            Download
-          </div>
-        </div>
-      </BaseModal>
+      <PreviewModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        previewImage={previewImage}
+      />
     </div>
   );
 }

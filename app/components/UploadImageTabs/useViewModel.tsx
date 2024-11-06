@@ -1,11 +1,7 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { AxiosInstance } from "@/app/api/axios";
+import { useEffect, useState } from "react";
 
 function useViewModel() {
-  const AxiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
-  });
-
   const [file, setFile] = useState<string[]>([]);
 
   const getAllImage = () => {

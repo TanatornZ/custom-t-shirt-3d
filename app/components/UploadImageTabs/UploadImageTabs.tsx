@@ -1,33 +1,37 @@
 import { cx } from "@emotion/css";
-import axios from "axios";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import useViewModel from "./useViewModel";
 
 type Props = {
   isImageTabsOpen: boolean;
   setIsImageTabsOpen: (isOpen: boolean) => void;
+  setShirtTexture: (shirtImage: string) => void;
 };
 
-function UploadImageTabs({ isImageTabsOpen, setIsImageTabsOpen }: Props) {
+function UploadImageTabs({
+  isImageTabsOpen,
+  setIsImageTabsOpen,
+  setShirtTexture,
+}: Props) {
   const { file, handleImageInputChange } = useViewModel();
 
   return (
     <div
       className={cx(
-        "absolute top-1/2 transform -translate-y-1/2 left-0 lg:left-8 w-[340px] lg:w-[380px] lg:!translate-x-0 rounded-lg h-[95vh] bg-slate-200 z-40 transition-all duration-500",
+        "absolute top-1/2 transform -translate-y-1/2 left-0 lg:left-8 w-[340px] lg:w-[380px] lg:!translate-x-0 rounded-lg h-[95vh] bg-slate-200 z-20 transition-all duration-500",
         !isImageTabsOpen && "-translate-x-full"
       )}
     >
       <div
-        className="absolute top-1/2 transform lg:hidden -translate-y-1/2 z-50 flex justify-center items-center -right-6 w-6 rounded-tr-lg rounded-br-lg bg-gray-500"
+        className="absolute top-1/2 transform lg:hidden -translate-y-1/2 z-20 flex justify-center items-center -right-6 w-6 rounded-tr-lg rounded-br-lg bg-gray-500"
         onClick={() => setIsImageTabsOpen(!isImageTabsOpen)}
       >
         <div
           className={cx(
-            "rotate-180 my-4 transition-all duration-500",
-            isImageTabsOpen && "rotate-0"
+            "rotate-180 my-4 transition-transform duration-500",
+            isImageTabsOpen && "!rotate-0"
           )}
         >
           <IoIosArrowBack />
@@ -41,7 +45,13 @@ function UploadImageTabs({ isImageTabsOpen, setIsImageTabsOpen }: Props) {
           {file && file.length > 0 ? (
             <div className="grid grid-cols-2 gap-4 lg:gap-8">
               {file.map((file, index) => (
-                <div className="w-full h-28 relative">
+                <div
+                  className="w-full h-28 relative cursor-pointer"
+                  onClick={() => {
+                    setShirtTexture(file);
+                  }}
+                  key={`texture ${index}`}
+                >
                   <Image
                     src={file}
                     alt={`texture ${index}`}
