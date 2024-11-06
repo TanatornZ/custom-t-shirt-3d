@@ -64,6 +64,7 @@ export const BaseModal = ({
           background: "rgba(0, 0, 0, 0.56)",
           display: "flex",
           alignItems: "center",
+          zIndex: 50,
           ...overlay,
         },
         content: {
@@ -81,7 +82,7 @@ export const BaseModal = ({
           margin: margin,
           left: "0",
           right: "0",
-          zIndex: 50,
+          zIndex: 100,
         },
       }}
     >
