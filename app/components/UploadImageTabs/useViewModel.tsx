@@ -1,8 +1,9 @@
 import { AxiosInstance } from "@/app/api/axios";
+import { ITextureImage } from "@/app/types/imageFile";
 import { useEffect, useState } from "react";
 
 function useViewModel() {
-  const [file, setFile] = useState<string[]>([]);
+  const [file, setFile] = useState<ITextureImage[]>([]);
   const [loading, setLoading] = useState(true);
 
   const getAllImage = () => {
@@ -14,7 +15,6 @@ function useViewModel() {
 
   function handleImageInputChange(e: any) {
     setLoading(true);
-    setFile([URL.createObjectURL(e.target.files[0]), ...file]);
     var formData = new FormData();
     formData.append("file", e.target.files[0]);
     AxiosInstance.post("/texture", formData, {
