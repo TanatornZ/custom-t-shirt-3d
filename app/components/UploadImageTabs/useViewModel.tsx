@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 
 function useViewModel() {
   const [file, setFile] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const getAllImage = () => {
     AxiosInstance.get("/texture")
       .then((res) => console.log("res =>", setFile(res.data)))
-      .catch((err) => console.log("err =>", err));
+      .catch((err) => console.log("err =>", err))
+      .finally(() => setLoading(false));
   };
 
   function handleImageInputChange(e: any) {
+    setLoading(true);
     setFile([URL.createObjectURL(e.target.files[0]), ...file]);
     var formData = new FormData();
     formData.append("file", e.target.files[0]);
@@ -27,7 +30,7 @@ function useViewModel() {
     getAllImage();
   }, []);
 
-  return { handleImageInputChange, file };
+  return { handleImageInputChange, file, loading };
 }
 
 export default useViewModel;

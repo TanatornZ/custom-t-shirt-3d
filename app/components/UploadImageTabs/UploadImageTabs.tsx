@@ -15,7 +15,7 @@ function UploadImageTabs({
   setIsImageTabsOpen,
   setShirtTexture,
 }: Props) {
-  const { file, handleImageInputChange } = useViewModel();
+  const { file, handleImageInputChange, loading } = useViewModel();
 
   return (
     <div
@@ -38,11 +38,15 @@ function UploadImageTabs({
         </div>
       </div>
       <div className="text-black h-full w-full relative flex flex-col justify-between">
-        <div className=" p-4 md:p-6">
+        <div className="p-4 md:p-6">
           <p className="text-center text-xl font-semibold">Drop Image</p>
         </div>
-        <div className="h-full w-full px-4">
-          {file && file.length > 0 ? (
+        <div className="h-full w-full px-4 overflow-auto">
+          {loading ? (
+            <div className="text-center h-full flex justify-center items-center">
+              <div className="loader"></div>
+            </div>
+          ) : file && file.length > 0 ? (
             <div className="grid grid-cols-2 gap-4 lg:gap-8">
               {file.map((file, index) => (
                 <div
@@ -63,11 +67,11 @@ function UploadImageTabs({
             </div>
           ) : (
             <div className="text-center h-full flex justify-center items-center">
-              Please upload file image
+              <p>Please upload file image</p>
             </div>
           )}
         </div>
-        <div className="w-full p-4">
+        <div className="w-full p-4 md:p-6">
           <div className="p-4 w-full h-12 rounded-md bg-blue-500 relative hover:bg-blue-600 cursor-pointer flex justify-center items-center">
             <input
               className="w-full h-full absolute opacity-0 cursor-pointer"

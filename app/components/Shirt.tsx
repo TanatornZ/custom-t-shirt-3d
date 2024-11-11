@@ -25,18 +25,13 @@ export function Shirt({
         let original_height = imageData.source.data.height;
         let default_scale = 0.25;
         let original_width = imageData.source.data.width;
-
         if (original_height > original_width) {
           let scaling_factor = default_scale / original_height;
-
           let new_width = original_width * scaling_factor;
-
           setDecalScale([new_width, default_scale, 0.2]);
         } else {
           let scaling_factor = default_scale / original_width;
-
           let new_height = original_height * scaling_factor;
-
           setDecalScale([default_scale, new_height, 0.2]);
         }
       });
