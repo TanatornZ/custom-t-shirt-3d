@@ -13,7 +13,7 @@ export function Shirt({
 }) {
   const { nodes, materials } = useGLTF("/models/shirt_baked_collapsed.glb");
   const loader = new TextureLoader();
-  const [decalScale, setDecalScale] = useState([0.2, 0.2, 1]);
+  const [decalScale, setDecalScale] = useState([0.2, 0.2, 0.2]);
 
   const [texture, setTexture] = useState(
     loader.load("/texture/white-background.jpg")
@@ -31,13 +31,13 @@ export function Shirt({
 
           let new_width = original_width * scaling_factor;
 
-          setDecalScale([new_width, default_scale, 1]);
+          setDecalScale([new_width, default_scale, 0.2]);
         } else {
           let scaling_factor = default_scale / original_width;
 
           let new_height = original_height * scaling_factor;
 
-          setDecalScale([default_scale, new_height, 1]);
+          setDecalScale([default_scale, new_height, 0.2]);
         }
       });
       setTexture(shirt);
