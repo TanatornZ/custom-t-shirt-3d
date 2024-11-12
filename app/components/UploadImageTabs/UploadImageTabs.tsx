@@ -48,16 +48,16 @@ function UploadImageTabs({
             </div>
           ) : file && file.length > 0 ? (
             <div className="grid grid-cols-2 gap-4 lg:gap-8">
-              {file.map((file, index) => (
+              {file.map((texture, index) => (
                 <div
                   className="w-full h-28 relative cursor-pointer"
                   onClick={() => {
-                    setShirtTexture(file);
+                    setShirtTexture(texture.fileURL);
                   }}
                   key={`texture ${index}`}
                 >
                   <Image
-                    src={file}
+                    src={texture.fileURL}
                     alt={`texture ${index}`}
                     fill
                     className="object-contain"
