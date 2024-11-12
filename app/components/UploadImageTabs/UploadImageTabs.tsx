@@ -15,8 +15,8 @@ function UploadImageTabs({
   setIsImageTabsOpen,
   setShirtTexture,
 }: Props) {
-  const { file, handleImageInputChange, loading } = useViewModel();
-
+  const { file, handleImageInputChange, loading, uploading, uploadingImage } =
+    useViewModel();
   return (
     <div
       className={cx(
@@ -48,26 +48,48 @@ function UploadImageTabs({
             </div>
           ) : file && file.length > 0 ? (
             <div className="grid grid-cols-2 gap-4 lg:gap-8">
+              {uploading && (
+                <div className="w-full h-28 relative cursor-pointer animate-pulse">
+                  <Image
+                    src={uploadingImage}
+                    alt={`uploadingImage`}
+                    fill
+                    className="object-contain"
+                    loading="eager"
+                  />
+                  <div className="absolute bottom-2 w-full px-4">
+                    <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700">
+                      <div
+                        className="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500 transition-all"
+                        style={{ width: `${uploading}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              )}
               {file.map((texture, index) => (
                 <div
                   className="w-full h-28 relative cursor-pointer"
                   onClick={() => {
                     setShirtTexture(texture.fileURL);
                   }}
-                  key={`texture ${index}`}
+                  key={`texture ${texture.filePath}`}
                 >
                   <Image
                     src={texture.fileURL}
                     alt={`texture ${index}`}
                     fill
                     className="object-contain"
+                    loading="eager"
                   />
                 </div>
               ))}
             </div>
           ) : (
             <div className="text-center h-full flex justify-center items-center">
-              <p>Please upload file image</p>
+              <p className="text-gray-500 font-medium">
+                Please upload file image
+              </p>
             </div>
           )}
         </div>
