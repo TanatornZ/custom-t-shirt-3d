@@ -20,7 +20,7 @@ function PreviewModal({ isModalOpen, setIsModalOpen, previewImage }: Props) {
       onClose={() => {
         setIsModalOpen(false);
       }}
-      className="m-4 mx-auto flex h-fit justify-center rounded-md bg-white p-2 md:max-w-[640px] md:p-4 xl:max-w-[1080px] z-50"
+      className="m-4 mx-auto flex h-fit justify-center rounded-md !bg-slate-100 p-2 md:max-w-[640px] md:p-4 xl:max-w-[1080px] z-50"
       borderRadius=""
       padding=""
       margin={isMobile ? "16px" : "auto"}
@@ -28,7 +28,7 @@ function PreviewModal({ isModalOpen, setIsModalOpen, previewImage }: Props) {
       closeButtonClassName="hidden"
     >
       <div className="w-full  flex flex-col">
-        <div className="w-full h-[400px] relative z-20">
+        <div className="w-full h-[400px] relative z-20 bg-slate-200 rounded-lg mt-4">
           <Image
             src={previewImage}
             alt="preview-custom-3D-shirt"

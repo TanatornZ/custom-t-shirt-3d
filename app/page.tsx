@@ -54,7 +54,6 @@ export default function Home() {
           </Center>
         </Canvas>
       </Suspense>
-
       <div className="absolute flex flex-col md:flex-row justify-center items-center bottom-4 md:bottom-8 gap-8">
         <div className="flex gap-8">
           <ColorShirtPicker
@@ -86,7 +85,6 @@ export default function Home() {
           Preview
         </div>
       </div>
-
       <PreviewModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
