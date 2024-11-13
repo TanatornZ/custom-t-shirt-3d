@@ -2,6 +2,7 @@
 
 import { cx } from "@emotion/css";
 import { CSSProperties, ReactNode, useEffect } from "react";
+import { IoClose } from "react-icons/io5";
 import Modal from "react-modal";
 
 export interface BaseModalProps {
@@ -94,7 +95,7 @@ export const BaseModal = ({
       >
         <span className={cx("w-full", titleClassName)}>{title}</span>
         <div onClick={onClose} className="cursor-pointer text-black">
-          X
+          <IoClose size={24} />
         </div>
       </div>
       <div className="flex flex-auto overflow-hidden">{children}</div>
