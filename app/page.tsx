@@ -8,6 +8,7 @@ import { useMedia } from "react-use";
 import UploadImageTabs from "./components/UploadImageTabs/UploadImageTabs";
 import ColorShirtPicker from "./components/ColorShirtPicker";
 import PreviewModal from "./components/PreviewModal";
+import LoginButton from "./components/LoginButton";
 
 export type IColorPicker = "#242424" | "#ffffff" | "#dc2626";
 
@@ -32,9 +33,12 @@ export default function Home() {
         position: "relative",
       }}
     >
-      <h1 className="text-2xl md:text-3xl font-bold text-black">
-        Custom your shirt
-      </h1>
+      <div className="space-y-2 flex flex-col justify-center items-center">
+        <h1 className="text-2xl md:text-3xl font-bold text-black">
+          Custom your shirt
+        </h1>
+        <LoginButton />
+      </div>
       <UploadImageTabs
         setShirtTexture={setShirtTexture}
         isImageTabsOpen={isImageTabsOpen}
