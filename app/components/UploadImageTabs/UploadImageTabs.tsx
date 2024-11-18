@@ -6,6 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import useViewModel from "./useViewModel";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
+import ConfirmModal from "../ComfirmModal";
 
 type Props = {
   isImageTabsOpen: boolean;
@@ -27,6 +28,9 @@ function UploadImageTabs({
     setDeleteImageState,
     deleteImageState,
     handleDeleteImage,
+    showConfirmDeleteModal,
+    deleteModalIsOpen,
+    setDeleteModalIsOpen,
   } = useViewModel();
 
   return (
@@ -96,7 +100,7 @@ function UploadImageTabs({
                     if (!deleteImageState) {
                       setShirtTexture(texture.fileURL);
                     } else {
-                      handleDeleteImage(texture);
+                      showConfirmDeleteModal(texture.filePath);
                     }
                   }}
                   key={`texture ${texture.filePath}`}
@@ -143,6 +147,29 @@ function UploadImageTabs({
           </div>
         </div>
       </div>
+      {deleteModalIsOpen && (
+        <ConfirmModal
+          setIsModalOpen={setDeleteModalIsOpen}
+          isModalOpen={deleteModalIsOpen}
+        >
+          <div className="text-black w-full  mt-4 md:mt-6 space-y-4 md:space-y-6">
+            <p className="text-center w-full">
+              Are you sure to delete this image
+            </p>
+            <div className="flex gap-4 md:gap-6 w-full justify-center">
+              <button className="p-2 px-3 bg-gray-200 hover:bg-gray-300 rounded-lg font-semibold">
+                Cancel
+              </button>
+              <button
+                className="p-2 px-3 bg-red-400 hover:bg-red-500 rounded-lg text-white font-semibold"
+                onClick={() => handleDeleteImage()}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </ConfirmModal>
+      )}
     </div>
   );
 }

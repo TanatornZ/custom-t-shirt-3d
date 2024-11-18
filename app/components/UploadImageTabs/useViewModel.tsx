@@ -9,6 +9,8 @@ function useViewModel() {
   const [uploadingImage, setUploadingImage] = useState("");
   const [uploading, setUploading] = useState<number | null>(null);
   const [deleteImageState, setDeleteImageState] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [selectDeleteImage, setSelectDeleteImage] = useState("");
 
   const getAllImage = () => {
     AxiosInstance.get("/texture")
@@ -19,14 +21,23 @@ function useViewModel() {
       .finally(() => setLoading(false));
   };
 
-  const handleDeleteImage = (image: ITextureImage) => {
-    let files = file.filter((items) => items !== image);
-    AxiosInstance.delete("/texture", { data: { pathImage: image.filePath } })
+  const showConfirmDeleteModal = (imagePath: string) => {
+    setDeleteModalIsOpen(true);
+    setSelectDeleteImage(imagePath);
+  };
+
+  const handleDeleteImage = () => {
+    let files = file.filter((items) => items.filePath !== selectDeleteImage);
+    AxiosInstance.delete("/texture", { data: { pathImage: selectDeleteImage } })
       .then(() => {
         setFile(files);
         toast.success("Image was deleted");
       })
-      .catch((err) => toast.error("Error : ", err));
+      .catch((err) => toast.error("Error : ", err))
+      .finally(() => {
+        setSelectDeleteImage("");
+        setDeleteModalIsOpen(false);
+      });
   };
 
   function handleImageInputChange(e: any) {
@@ -66,6 +77,9 @@ function useViewModel() {
     deleteImageState,
     setDeleteImageState,
     handleDeleteImage,
+    showConfirmDeleteModal,
+    setDeleteModalIsOpen,
+    deleteModalIsOpen,
   };
 }
 
