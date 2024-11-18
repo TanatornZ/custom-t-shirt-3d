@@ -7,12 +7,22 @@ function useViewModel() {
   const [loading, setLoading] = useState(true);
   const [uploadingImage, setUploadingImage] = useState("");
   const [uploading, setUploading] = useState<number | null>(null);
+  const [deleteImageState, setDeleteImageState] = useState(false);
 
   const getAllImage = () => {
     AxiosInstance.get("/texture")
       .then((res) => setFile(res.data))
       .catch((err) => console.log("err =>", err))
       .finally(() => setLoading(false));
+  };
+
+  const handleDeleteImage = (image: ITextureImage) => {
+    console.log("delete ", image.filePath);
+    let files = file.filter((items) => items !== image);
+
+    AxiosInstance.delete("/texture", { data: { pathImage: image.filePath } })
+      .then(() => setFile(files))
+      .catch((err) => console.log("err =>", err));
   };
 
   function handleImageInputChange(e: any) {
@@ -42,7 +52,16 @@ function useViewModel() {
     getAllImage();
   }, []);
 
-  return { handleImageInputChange, file, loading, uploadingImage, uploading };
+  return {
+    handleImageInputChange,
+    file,
+    loading,
+    uploadingImage,
+    uploading,
+    deleteImageState,
+    setDeleteImageState,
+    handleDeleteImage,
+  };
 }
 
 export default useViewModel;
