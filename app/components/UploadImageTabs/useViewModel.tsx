@@ -1,6 +1,7 @@
 import { AxiosInstance } from "@/app/api/axios";
 import { ITextureImage } from "@/app/types/imageFile";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 function useViewModel() {
   const [file, setFile] = useState<ITextureImage[]>([]);
@@ -11,18 +12,21 @@ function useViewModel() {
 
   const getAllImage = () => {
     AxiosInstance.get("/texture")
-      .then((res) => setFile(res.data))
+      .then((res) => {
+        setFile(res.data);
+      })
       .catch((err) => console.log("err =>", err))
       .finally(() => setLoading(false));
   };
 
   const handleDeleteImage = (image: ITextureImage) => {
-    console.log("delete ", image.filePath);
     let files = file.filter((items) => items !== image);
-
     AxiosInstance.delete("/texture", { data: { pathImage: image.filePath } })
-      .then(() => setFile(files))
-      .catch((err) => console.log("err =>", err));
+      .then(() => {
+        setFile(files);
+        toast.success("Image was deleted");
+      })
+      .catch((err) => toast.error("Error : ", err));
   };
 
   function handleImageInputChange(e: any) {
@@ -42,10 +46,11 @@ function useViewModel() {
     })
       .then((res) => {
         setFile([res.data, ...file]);
+        toast.success("Image was uploaded");
         setUploading(null);
         setUploadingImage("");
       })
-      .catch((err) => console.log("err => ", err));
+      .catch((err) => toast.error("Error : ", err));
   }
 
   useEffect(() => {
