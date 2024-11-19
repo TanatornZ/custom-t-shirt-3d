@@ -36,7 +36,6 @@ function PreviewModal({ isModalOpen, setIsModalOpen, previewImage }: Props) {
             className="object-contain scale-[2]"
           />
         </div>
-
         <div
           onClick={(e) => {
             e.stopPropagation();

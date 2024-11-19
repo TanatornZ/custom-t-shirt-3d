@@ -8,6 +8,7 @@ import { useMedia } from "react-use";
 import UploadImageTabs from "./components/UploadImageTabs/UploadImageTabs";
 import ColorShirtPicker from "./components/ColorShirtPicker";
 import PreviewModal from "./components/PreviewModal";
+import { Toaster } from "react-hot-toast";
 
 export type IColorPicker = "#242424" | "#ffffff" | "#dc2626";
 
@@ -32,6 +33,7 @@ export default function Home() {
         position: "relative",
       }}
     >
+      <Toaster toastOptions={{ className: "font-semibold" }} />
       <h1 className="text-2xl md:text-3xl font-bold text-black">
         Custom your shirt
       </h1>

@@ -1,8 +1,12 @@
+"use client";
 import { cx } from "@emotion/css";
 import Image from "next/image";
 import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import useViewModel from "./useViewModel";
+import { FaTrash } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import ConfirmModal from "../ComfirmModal";
 
 type Props = {
   isImageTabsOpen: boolean;
@@ -15,8 +19,20 @@ function UploadImageTabs({
   setIsImageTabsOpen,
   setShirtTexture,
 }: Props) {
-  const { file, handleImageInputChange, loading, uploading, uploadingImage } =
-    useViewModel();
+  const {
+    file,
+    handleImageInputChange,
+    loading,
+    uploading,
+    uploadingImage,
+    setDeleteImageState,
+    deleteImageState,
+    handleDeleteImage,
+    showConfirmDeleteModal,
+    deleteModalIsOpen,
+    setDeleteModalIsOpen,
+  } = useViewModel();
+
   return (
     <div
       className={cx(
@@ -38,8 +54,14 @@ function UploadImageTabs({
         </div>
       </div>
       <div className="text-black h-full w-full relative flex flex-col justify-between">
-        <div className="p-4 md:p-6">
+        <div className="p-4 md:p-6 relative">
           <p className="text-center text-xl font-semibold">Drop Image</p>
+          <div
+            className="absolute top-5 right-4 md:top-7 md:right-6 cursor-pointer hover:text-red-500 transition-all"
+            onClick={() => setDeleteImageState(!deleteImageState)}
+          >
+            {!deleteImageState ? <FaTrash size={20} /> : <MdCancel size={20} />}
+          </div>
         </div>
         <div className="h-full w-full px-4 overflow-auto">
           {loading ? (
@@ -47,7 +69,7 @@ function UploadImageTabs({
               <div className="loader"></div>
             </div>
           ) : file && file.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4 lg:gap-8">
+            <div className="grid grid-cols-2 gap-2 lg:gap-4">
               {uploading && (
                 <div className="w-full h-28 relative cursor-pointer animate-pulse">
                   <Image
@@ -69,9 +91,13 @@ function UploadImageTabs({
               )}
               {file.map((texture, index) => (
                 <div
-                  className="w-full h-28 relative cursor-pointer"
+                  className={cx("w-full h-28 relative cursor-pointer group")}
                   onClick={() => {
-                    setShirtTexture(texture.fileURL);
+                    if (!deleteImageState) {
+                      setShirtTexture(texture.fileURL);
+                    } else {
+                      showConfirmDeleteModal(texture.filePath);
+                    }
                   }}
                   key={`texture ${texture.filePath}`}
                 >
@@ -79,9 +105,21 @@ function UploadImageTabs({
                     src={texture.fileURL}
                     alt={`texture ${index}`}
                     fill
-                    className="object-contain"
+                    className="object-contain p-2"
                     loading="eager"
                   />
+
+                  <div className="hidden w-full h-full  bg-gray-500/40 rounded-lg group-hover:flex text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+                    {deleteImageState ? (
+                      <p className="bg-red-600 p-2 rounded-lg text-white font-medium">
+                        Delete Image
+                      </p>
+                    ) : (
+                      <p className="bg-blue-600 p-2 rounded-lg text-white font-medium">
+                        Select Image
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -105,6 +143,29 @@ function UploadImageTabs({
           </div>
         </div>
       </div>
+      {deleteModalIsOpen && (
+        <ConfirmModal
+          setIsModalOpen={setDeleteModalIsOpen}
+          isModalOpen={deleteModalIsOpen}
+        >
+          <div className="text-black w-full  mt-4 md:mt-6 space-y-4 md:space-y-6">
+            <p className="text-center w-full">
+              Are you sure to delete this image
+            </p>
+            <div className="flex gap-4 md:gap-6 w-full justify-center">
+              <button className="p-2 px-3 bg-gray-200 hover:bg-gray-300 rounded-lg font-semibold">
+                Cancel
+              </button>
+              <button
+                className="p-2 px-3 bg-red-400 hover:bg-red-500 rounded-lg text-white font-semibold"
+                onClick={() => handleDeleteImage()}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </ConfirmModal>
+      )}
     </div>
   );
 }
