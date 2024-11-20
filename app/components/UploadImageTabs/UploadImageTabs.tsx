@@ -55,7 +55,7 @@ function UploadImageTabs({
       </div>
       <div className="text-black h-full w-full relative flex flex-col justify-between">
         <div className="p-4 md:p-6 relative">
-          <p className="text-center text-xl font-semibold">Drop Image</p>
+          <p className="text-center text-xl font-medium">Texture</p>
           <div
             className="absolute top-5 right-4 md:top-7 md:right-6 cursor-pointer hover:text-red-500 transition-all"
             onClick={() => setDeleteImageState(!deleteImageState)}
