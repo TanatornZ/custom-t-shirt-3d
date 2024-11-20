@@ -42,20 +42,26 @@ export default function Home() {
         isImageTabsOpen={isImageTabsOpen}
         setIsImageTabsOpen={setIsImageTabsOpen}
       />
-      <Suspense fallback={<div className="grow self-center">loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="h-full flex flex-col justify-center">
+            <div className="loader self-items-center"></div>
+          </div>
+        }
+      >
         <Canvas
           shadows
-          camera={{ position: [0, 4, 24], zoom: 15 }}
+          camera={{ position: [0, 4, 24], zoom: 20 }}
           gl={{ preserveDrawingBuffer: true }}
           eventPrefix="client"
         >
-          <OrbitControls />
           <Center>
             <Shirt shirtColor={shirtColor} shirtTexture={shirtTexture} />
             <Environment preset="city" />
           </Center>
         </Canvas>
       </Suspense>
+
       <div className="absolute flex flex-col md:flex-row justify-center items-center bottom-4 md:bottom-8 gap-8">
         <div className="flex gap-8">
           <ColorShirtPicker
